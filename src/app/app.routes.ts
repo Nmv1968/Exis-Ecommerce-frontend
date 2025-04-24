@@ -5,13 +5,31 @@ import { FullComponent } from './layouts/full/full.component';
 export const routes: Routes = [
   {
     path: '',
-    component: FullComponent,
+    component: BlankComponent,
     children: [
       {
         path: '',
-        redirectTo: '/dashboard',
+        redirectTo: '/home',
         pathMatch: 'full',
       },
+      {
+        path: 'authentication',
+        loadChildren: () =>
+          import('./pages/authentication/authentication.routes').then(
+            (m) => m.AuthenticationRoutes
+          ),
+      },
+      {
+        path: 'home',
+        loadChildren: () =>
+          import('./pages/landing/landing.routes').then((m) => m.LandingRoutes),
+      },
+    ],
+  },
+  {
+    path: '',
+    component: FullComponent,
+    children: [
       {
         path: 'dashboard',
         loadChildren: () =>
@@ -31,19 +49,7 @@ export const routes: Routes = [
       },
     ],
   },
-  {
-    path: '',
-    component: BlankComponent,
-    children: [
-      {
-        path: 'authentication',
-        loadChildren: () =>
-          import('./pages/authentication/authentication.routes').then(
-            (m) => m.AuthenticationRoutes
-          ),
-      },
-    ],
-  },
+
   {
     path: '**',
     redirectTo: 'authentication/error',

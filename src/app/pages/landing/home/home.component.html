@@ -1,0 +1,62 @@
+<div class="landing-container">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1>Welcome to Our Store</h1>
+      <p>Discover amazing products at great prices</p>
+      <button mat-raised-button color="primary">Shop Now</button>
+    </div>
+
+    <!--  <div class="row">
+      <div class="col-md-4">Hola</div>
+      <div class="col-md-4">Hola</div>
+      <div class="col-md-4">Hola</div>
+    </div> -->
+  </section>
+
+  <!-- Featured Categories -->
+  <section class="categories-section">
+    <h2>Popular Categories</h2>
+    <div class="categories-grid">
+      <div class="category-card" *ngFor="let i of [1, 2, 3, 4]">
+        <mat-card>
+          <mat-card-content>
+            <h3>Category {{ i }}</h3>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Products -->
+  <section class="featured-products">
+    <h2>Featured Products</h2>
+    <div class="products-grid">
+      <mat-card class="product-card" *ngFor="let product of featuredProducts">
+        <img mat-card-image [src]="product.image" [alt]="product.name" />
+        <mat-card-content>
+          <h3>{{ product.name }}</h3>
+          <p>${{ product.price }}</p>
+          <p>{{ product.description }}</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button color="primary">Add to Cart</button>
+          <button mat-button>Learn More</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="cta-section">
+    <div class="cta-content">
+      <h2>Subscribe to Our Newsletter</h2>
+      <p>Get the latest updates and special offers</p>
+      <mat-form-field appearance="outline">
+        <input matInput placeholder="Enter your email" />
+      </mat-form-field>
+      <button mat-raised-button color="accent">Subscribe</button>
+    </div>
+  </section>
+</div>
+<p>home works!</p>
