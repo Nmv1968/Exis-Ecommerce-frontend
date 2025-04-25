@@ -1,4 +1,32 @@
 <div class="landing-container">
+  <!-- Toolbar Section -->
+  <mat-toolbar class="d-flex align-items-center justify-content-between">
+    <span>Exis</span>
+    <div class="d-flex gap-2">
+      <button class="toolbar-button" [cdkMenuTriggerFor]="mousepads_submenu">
+        Mousepads
+      </button>
+      <button class="toolbar-button">Mangas</button>
+      <button class="toolbar-button">Teclados</button>
+      <button class="toolbar-button">Mouse</button>
+      <button class="toolbar-button">Audifonos</button>
+      <button class="toolbar-button">Accesorios</button>
+    </div>
+    <div class="d-flex gap-2">
+      <button class="toolbar-button" [routerLink]="['/authentication/login']">
+        Login
+      </button>
+    </div>
+  </mat-toolbar>
+
+  <!-- Submenu Section -->
+  <ng-template #mousepads_submenu>
+    <div class="toolbar-menu" cdkMenu>
+      <button class="toolbar-menu-item" cdkMenuItem>Mousepads de 90x40</button>
+      <button class="toolbar-menu-item" cdkMenuItem>Mousepads de 45x40</button>
+    </div>
+  </ng-template>
+
   <!-- Hero Section -->
   <section class="hero-section">
     <div class="hero-content">
