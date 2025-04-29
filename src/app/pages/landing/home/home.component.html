@@ -1,31 +1,86 @@
 <div class="landing-container">
   <!-- Toolbar Section -->
   <mat-toolbar class="d-flex align-items-center justify-content-between">
-    <span>Exis</span>
-    <div class="d-flex gap-2">
-      <button class="toolbar-button" [cdkMenuTriggerFor]="mousepads_submenu">
-        Mousepads
+    <span style="cursor: pointer">
+      <img
+        src="../../../../assets/images/logos/logo.png"
+        alt="logo-exis"
+        style="
+          height: 55px;
+          width: 55px;
+          border-radius: 50%;
+          background-size: cover;
+          background-clip: content-box;
+          background-color: black;
+        "
+      />
+    </span>
+    <div class="d-flex gap-2 align-items-center">
+      @for (item of categories(); track item) {
+      <button
+        mat-fab
+        extended
+        class="toolbar-button"
+        [cdkMenuTriggerFor]="
+          item.subcategories?.length ? navbar_submenu : undefined
+        "
+        [cdkMenuTriggerData]="item.subcategories"
+        [ngStyle]="{
+          display: item.subcategories?.length ? 'flex': undefined,
+          'justify-content': item.subcategories?.length? 'center': undefined,
+          'align-items': item.subcategories?.length? 'center': undefined,
+        }"
+      >
+        <span>{{ item.name }}</span>
+        @if (item.subcategories?.length) {
+        <mat-icon
+          svgIcon="caret-down"
+          aria-hidden="false"
+          aria-label="caret-down-icon"
+          style="font-size: 14px; height: 14px; width: 14px"
+        ></mat-icon>
+        }
       </button>
-      <button class="toolbar-button">Mangas</button>
-      <button class="toolbar-button">Teclados</button>
-      <button class="toolbar-button">Mouse</button>
-      <button class="toolbar-button">Audifonos</button>
-      <button class="toolbar-button">Accesorios</button>
+
+      <!-- Submenu Section -->
+      <ng-template #navbar_submenu>
+        <div class="toolbar-menu" cdkMenu>
+          @for (sub of item.subcategories; track sub) {
+          <button class="toolbar-menu-item" cdkMenuItem mat-flat-button>
+            {{ sub.name }}
+          </button>
+          }
+        </div>
+      </ng-template>
+
+      }
     </div>
     <div class="d-flex gap-2">
-      <button class="toolbar-button" [routerLink]="['/authentication/login']">
+      <button
+        mat-fab
+        extended
+        class="toolbar-button"
+        [routerLink]="['/authentication/login']"
+      >
         Login
+        <mat-icon
+          svgIcon="user"
+          aria-hidden="false"
+          aria-label="caret-down-icon"
+          style="font-size: 14px; height: 14px; width: 14px"
+        ></mat-icon>
+      </button>
+      <button mat-fab extended class="toolbar-button">
+        Carrito (1)
+        <mat-icon
+          svgIcon="shopping-cart"
+          aria-hidden="false"
+          aria-label="caret-down-icon"
+          style="font-size: 14px; height: 14px; width: 14px"
+        ></mat-icon>
       </button>
     </div>
   </mat-toolbar>
-
-  <!-- Submenu Section -->
-  <ng-template #mousepads_submenu>
-    <div class="toolbar-menu" cdkMenu>
-      <button class="toolbar-menu-item" cdkMenuItem>Mousepads de 90x40</button>
-      <button class="toolbar-menu-item" cdkMenuItem>Mousepads de 45x40</button>
-    </div>
-  </ng-template>
 
   <!-- Hero Section -->
   <section class="hero-section">

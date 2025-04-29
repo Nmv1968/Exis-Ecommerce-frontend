@@ -1,3 +1,5 @@
+@use "@angular/material" as mat;
+
 .landing-container {
   width: 100%;
   // max-width: 1200px;
@@ -8,7 +10,7 @@
 .hero-section {
   height: 500px;
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("/assets/images/backgrounds/hero-bg.jpg");
+    url(/assets/images/backgrounds/hero-bg.jpg);
   background-size: cover;
   background-position: center;
   display: flex;
@@ -97,6 +99,7 @@
   background-color: rgba(255, 255, 255);
   padding: 6px 0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.1);
+  animation: menuSlideDown 0.2s ease;
 }
 
 .toolbar-menu-item:hover {
@@ -105,16 +108,6 @@
 
 .toolbar-menu-item:active {
   background-color: rgb(170, 170, 170);
-}
-
-.example-standalone-item {
-  background-color: rgb(239, 239, 239);
-}
-.example-standalone-item:hover {
-  background-color: rgb(208, 208, 208);
-}
-.example-standalone-item[aria-expanded="true"] {
-  background-color: rgb(208, 208, 208);
 }
 
 .toolbar-menu-item {
@@ -129,6 +122,7 @@
   cursor: pointer;
   color: rgba(0, 0, 0, 0.87);
   transition: background-color 0.3s;
+  animation: menuItemFadeIn 0.3s ease forwards;
 
   &:hover {
     background-color: rgb(208, 208, 208);
@@ -149,12 +143,18 @@
   color: rgba(0, 0, 0, 0.87);
   transition: background-color 0.3s;
 
-  &:hover {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
-    transition: all 0.3s ease-out;
-  }
+  /* @include mat.button-overrides(
+    (
+      filled-hover-state-layer-opacity: 0,
+      outlined-hover-state-layer-opacity: 0,
+      protected-hover-container-elevation-shadow: none,
+      protected-hover-state-layer-opacity: 0,
+      text-hover-state-layer-opacity: 0,
+    )
+  ); */
 }
 
+// Media Queries
 @media (max-width: 768px) {
   .hero-section {
     height: 400px;
@@ -168,5 +168,28 @@
         font-size: 1.2rem;
       }
     }
+  }
+}
+
+// Animations
+@keyframes menuSlideDown {
+  from {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+  to {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+@keyframes menuItemFadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
 }

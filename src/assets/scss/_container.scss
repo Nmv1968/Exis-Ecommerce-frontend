@@ -6,7 +6,12 @@
   box-sizing: border-box;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: 500;
 }
 
@@ -17,7 +22,7 @@ body {
   color: var(--mat-sys-on-background);
 }
 
-.app-topstrip{
+.app-topstrip {
   position: fixed;
   top: 0;
   z-index: 10;
@@ -31,8 +36,8 @@ body {
   margin-top: 60px;
 }
 
-@media (max-width: 1199px){
-  .mainWrapper{
+@media (max-width: 1199px) {
+  .mainWrapper {
     margin-top: 98px;
   }
 }
