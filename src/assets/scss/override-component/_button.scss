@@ -38,6 +38,13 @@ html {
     }
   }
 
+  .mat-mdc-button-base.bg-white {
+    color: $dark !important;
+    &:hover {
+      background-color: #f5f5f5 !important;
+    }
+  }
+
   .mat-mdc-button-base.bg-light-secondary {
     &:hover {
       background-color: var(--mat-sys-secondary) !important;

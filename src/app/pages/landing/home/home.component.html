@@ -20,7 +20,7 @@
       <button
         mat-fab
         extended
-        class="toolbar-button"
+        class="toolbar-button bg-white"
         [cdkMenuTriggerFor]="
           item.subcategories?.length ? navbar_submenu : undefined
         "
@@ -46,7 +46,11 @@
       <ng-template #navbar_submenu>
         <div class="toolbar-menu" cdkMenu>
           @for (sub of item.subcategories; track sub) {
-          <button class="toolbar-menu-item" cdkMenuItem mat-flat-button>
+          <button
+            class="toolbar-menu-item bg-white"
+            cdkMenuItem
+            mat-flat-button
+          >
             {{ sub.name }}
           </button>
           }
@@ -66,7 +70,7 @@
         <mat-icon
           svgIcon="user"
           aria-hidden="false"
-          aria-label="caret-down-icon"
+          aria-label="user-icon"
           style="font-size: 14px; height: 14px; width: 14px"
         ></mat-icon>
       </button>
@@ -75,7 +79,7 @@
         <mat-icon
           svgIcon="shopping-cart"
           aria-hidden="false"
-          aria-label="caret-down-icon"
+          aria-label="shopping-cart-icon"
           style="font-size: 14px; height: 14px; width: 14px"
         ></mat-icon>
       </button>
@@ -83,19 +87,33 @@
   </mat-toolbar>
 
   <!-- Hero Section -->
-  <section class="hero-section">
-    <div class="hero-content">
-      <h1>Welcome to Our Store</h1>
-      <p>Discover amazing products at great prices</p>
-      <button mat-raised-button color="primary">Shop Now</button>
-    </div>
-
-    <!--  <div class="row">
-      <div class="col-md-4">Hola</div>
-      <div class="col-md-4">Hola</div>
-      <div class="col-md-4">Hola</div>
-    </div> -->
-  </section>
+  <swiper-container class="hero-section" #swiperElement init="false">
+    @for (slide of categories(); track slide) {
+    <swiper-slide class="hero-slide">
+      <div
+        class="hero-image"
+        [style]="{
+          'background-image': 'url(' + slide.image + ')',
+        }"
+      ></div>
+      <div class="hero-text">
+        <h2 class="main-title">
+          @for (desc of slide.description?.split(' '); track desc) {
+          <span [class.text-outline-light]="$index % 2 != 0 && desc.length < 5">
+            {{ desc }}
+          </span>
+          }
+        </h2>
+        <p class="subtitle">{{ slide.additionalInfo }}</p>
+        <!-- From Uiverse.io by vinodjangid07 -->
+        <button class="shop-button">
+          <mat-icon svgIcon="explore" aria-hidden="false" aria-label="explore-icon" class="svgIcon"/>
+          Explorar
+        </button>
+      </div>
+    </swiper-slide>
+    }
+  </swiper-container>
 
   <!-- Featured Categories -->
   <section class="categories-section">
