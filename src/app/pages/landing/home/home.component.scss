@@ -9,7 +9,6 @@
 
 .hero-section {
   height: 500px;
-  margin-bottom: 60px;
   overflow: hidden;
 
   .hero-slide {
@@ -70,10 +69,10 @@
       border: none;
       position: relative;
       cursor: pointer;
-      transition-duration: .2s;
+      transition-duration: 0.2s;
       box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.116);
       padding-left: 8px;
-      transition-duration: .5s;
+      transition-duration: 0.5s;
     }
 
     .svgIcon {
@@ -87,12 +86,12 @@
 
     .shop-button:hover {
       background-color: rgb(231, 235, 240);
-      transition-duration: .5s;
+      transition-duration: 0.5s;
     }
 
     .shop-button:active {
       transform: scale(0.97);
-      transition-duration: .2s;
+      transition-duration: 0.2s;
     }
 
     .shop-button:hover .svgIcon {
@@ -106,7 +105,6 @@
     //   color: white;
     //   background-color: rgba(0, 0, 0, 0.5);
     // }
-
   }
 
   @media (max-width: 768px) {
@@ -321,5 +319,79 @@
   to {
     opacity: 1;
     transform: translateX(0);
+  }
+}
+
+.mobile-toolbar {
+  padding: 0 16px; // Añade padding lateral
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  background: white;
+
+  .toolbar-content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 15px;
+
+    .logo-image {
+      height: 45px;
+      width: 45px;
+      border-radius: 50%;
+      background-size: cover;
+      background-clip: content-box;
+      background-color: black;
+      margin-left: 10px;
+      flex-shrink: 0;
+    }
+
+    .toolbar-actions {
+      margin-left: auto; // Esto empuja los botones a la derecha
+      display: flex;
+      gap: 10px;
+
+      .toolbar-button {
+        padding: 8px 16px;
+        mat-icon {
+          margin-left: 8px;
+          font-size: 14px;
+          height: 14px;
+          width: 14px;
+        }
+      }
+    }
+  }
+}
+
+// Versión responsive
+@media (max-width: 600px) {
+  .mobile-toolbar {
+    padding: 0 10px;
+
+    .toolbar-content {
+      gap: 8px;
+
+      .logo-image {
+        height: 40px;
+        width: 40px;
+        margin-left: 5px;
+      }
+
+      .toolbar-actions {
+        gap: 6px;
+
+        .toolbar-button {
+          font-size: 0.8rem;
+          padding: 0 12px;
+
+          mat-icon {
+            margin-left: 4px;
+          }
+        }
+      }
+    }
   }
 }

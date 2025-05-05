@@ -1,17 +1,22 @@
 import { Routes } from '@angular/router';
 import { BlankComponent } from './layouts/blank/blank.component';
 import { FullComponent } from './layouts/full/full.component';
+import { HomeComponent } from './pages/landing/home/home.component';
 
 export const routes: Routes = [
   {
     path: '',
+    redirectTo: '/home',
+    pathMatch: 'full',
+  },
+  {
+    path: 'home',
+    component: HomeComponent,
+  },
+  {
+    path: '',
     component: BlankComponent,
     children: [
-      {
-        path: '',
-        redirectTo: '/home',
-        pathMatch: 'full',
-      },
       {
         path: 'authentication',
         loadChildren: () =>

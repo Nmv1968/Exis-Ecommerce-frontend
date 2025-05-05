@@ -1,163 +1,250 @@
-<div class="landing-container">
-  <!-- Toolbar Section -->
-  <mat-toolbar class="d-flex align-items-center justify-content-between">
-    <span style="cursor: pointer">
+<!-- Sidebar Section -->
+<div class="landing-container" [class.sidebar-is-mobile]="isMobile()">
+  @if (isMobile()) {
+  <mat-toolbar class="mobile-toolbar">
+    <div class="toolbar-content">
+      <button mat-icon-button (click)="snav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+
       <img
         src="../../../../assets/images/logos/logo.png"
         alt="logo-exis"
-        style="
-          height: 55px;
-          width: 55px;
-          border-radius: 50%;
-          background-size: cover;
-          background-clip: content-box;
-          background-color: black;
-        "
+        class="logo-image"
       />
-    </span>
-    <div class="d-flex gap-2 align-items-center">
-      @for (item of categories(); track item) {
-      <button
-        mat-fab
-        extended
-        class="toolbar-button bg-white"
-        [cdkMenuTriggerFor]="
-          item.subcategories?.length ? navbar_submenu : undefined
-        "
-        [cdkMenuTriggerData]="item.subcategories"
-        [ngStyle]="{
-          display: item.subcategories?.length ? 'flex': undefined,
-          'justify-content': item.subcategories?.length? 'center': undefined,
-          'align-items': item.subcategories?.length? 'center': undefined,
-        }"
-      >
-        <span>{{ item.name }}</span>
-        @if (item.subcategories?.length) {
-        <mat-icon
-          svgIcon="caret-down"
-          aria-hidden="false"
-          aria-label="caret-down-icon"
-          style="font-size: 14px; height: 14px; width: 14px"
-        ></mat-icon>
-        }
-      </button>
 
-      <!-- Submenu Section -->
-      <ng-template #navbar_submenu>
-        <div class="toolbar-menu" cdkMenu>
-          @for (sub of item.subcategories; track sub) {
-          <button
-            class="toolbar-menu-item bg-white"
-            cdkMenuItem
-            mat-flat-button
-          >
-            {{ sub.name }}
-          </button>
-          }
-        </div>
-      </ng-template>
-
-      }
-    </div>
-    <div class="d-flex gap-2">
-      <button
-        mat-fab
-        extended
-        class="toolbar-button"
-        [routerLink]="['/authentication/login']"
-      >
-        Login
-        <mat-icon
-          svgIcon="user"
-          aria-hidden="false"
-          aria-label="user-icon"
-          style="font-size: 14px; height: 14px; width: 14px"
-        ></mat-icon>
-      </button>
-      <button mat-fab extended class="toolbar-button">
-        Carrito (1)
-        <mat-icon
-          svgIcon="shopping-cart"
-          aria-hidden="false"
-          aria-label="shopping-cart-icon"
-          style="font-size: 14px; height: 14px; width: 14px"
-        ></mat-icon>
-      </button>
-    </div>
-  </mat-toolbar>
-
-  <!-- Hero Section -->
-  <swiper-container class="hero-section" #swiperElement init="false">
-    @for (slide of categories(); track slide) {
-    <swiper-slide class="hero-slide">
-      <div
-        class="hero-image"
-        [style]="{
-          'background-image': 'url(' + slide.image + ')',
-        }"
-      ></div>
-      <div class="hero-text">
-        <h2 class="main-title">
-          @for (desc of slide.description?.split(' '); track desc) {
-          <span [class.text-outline-light]="$index % 2 != 0 && desc.length < 5">
-            {{ desc }}
-          </span>
-          }
-        </h2>
-        <p class="subtitle">{{ slide.additionalInfo }}</p>
-        <!-- From Uiverse.io by vinodjangid07 -->
-        <button class="shop-button">
-          <mat-icon svgIcon="explore" aria-hidden="false" aria-label="explore-icon" class="svgIcon"/>
-          Explorar
+      <div class="toolbar-actions">
+        <button
+          mat-fab
+          extended
+          class="toolbar-button bg-white"
+          [routerLink]="['/authentication/login']"
+        >
+          Login
+          <mat-icon svgIcon="user"></mat-icon>
+        </button>
+        <button mat-fab extended class="toolbar-button bg-white">
+          Carrito (1)
+          <mat-icon svgIcon="shopping-cart"></mat-icon>
         </button>
       </div>
-    </swiper-slide>
-    }
-  </swiper-container>
+    </div>
+  </mat-toolbar>
+  }
 
-  <!-- Featured Categories -->
-  <section class="categories-section">
-    <h2>Popular Categories</h2>
-    <div class="categories-grid">
-      <div class="category-card" *ngFor="let i of [1, 2, 3, 4]">
-        <mat-card>
-          <mat-card-content>
-            <h3>Category {{ i }}</h3>
-          </mat-card-content>
-        </mat-card>
+  <mat-sidenav-container class="mobile-sidenav-container bg-white">
+    <mat-sidenav
+      #snav
+      [mode]="isMobile() ? 'over' : 'side'"
+      [fixedInViewport]="isMobile()"
+      fixedTopGap="56"
+      class="bg-white"
+    >
+      <mat-nav-list>
+        @for (category of categories(); track category) {
+        <a mat-list-item>
+          <div class="d-flex align-items-center justify-content-between">
+            {{ category.name }}
+            @if (category.subcategories?.length) {
+            <mat-icon
+              aria-hidden="false"
+              aria-label="arrow_drop_down_icon"
+              fontIcon="arrow_drop_down"
+            ></mat-icon>
+            }
+          </div>
+        </a>
+        @if (category.subcategories?.length) {
+        <mat-action-list>
+          @for (subcategory of category.subcategories; track subcategory) {
+          <a mat-list-item class="mx-2">{{ subcategory.name }}</a>
+          }
+        </mat-action-list>
+        } }
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      @if (!isMobile()) {
+      <!-- Toolbar Section -->
+      <mat-toolbar
+        class="d-flex align-items-center justify-content-between bg-white"
+      >
+        <span style="cursor: pointer">
+          <img
+            src="../../../../assets/images/logos/logo.png"
+            alt="logo-exis"
+            style="
+              height: 55px;
+              width: 55px;
+              border-radius: 50%;
+              background-size: cover;
+              background-clip: content-box;
+              background-color: black;
+            "
+          />
+        </span>
+        <div class="d-flex gap-2 align-items-center">
+          @for (item of categories(); track item) {
+          <button
+            mat-fab
+            extended
+            class="toolbar-button bg-white"
+            [cdkMenuTriggerFor]="
+              item.subcategories?.length ? navbar_submenu : undefined
+            "
+            [cdkMenuTriggerData]="item.subcategories"
+            [ngStyle]="{
+                  display: item.subcategories?.length ? 'flex': undefined,
+                  'justify-content': item.subcategories?.length? 'center': undefined,
+                  'align-items': item.subcategories?.length? 'center': undefined,
+                }"
+          >
+            <span>{{ item.name }}</span>
+            @if (item.subcategories?.length) {
+            <mat-icon
+              svgIcon="caret-down"
+              aria-hidden="false"
+              aria-label="caret-down-icon"
+              style="font-size: 14px; height: 14px; width: 14px"
+            ></mat-icon>
+            }
+          </button>
+
+          <!-- Submenu Section -->
+          <ng-template #navbar_submenu>
+            <div class="toolbar-menu" cdkMenu>
+              @for (sub of item.subcategories; track sub) {
+              <button
+                class="toolbar-menu-item bg-white"
+                cdkMenuItem
+                mat-flat-button
+              >
+                {{ sub.name }}
+              </button>
+              }
+            </div>
+          </ng-template>
+
+          }
+        </div>
+        <div class="d-flex gap-2">
+          <button
+            mat-fab
+            extended
+            class="toolbar-button"
+            [routerLink]="['/authentication/login']"
+          >
+            Login
+            <mat-icon
+              svgIcon="user"
+              aria-hidden="false"
+              aria-label="user-icon"
+              style="font-size: 14px; height: 14px; width: 14px"
+            ></mat-icon>
+          </button>
+          <button mat-fab extended class="toolbar-button">
+            Carrito (1)
+            <mat-icon
+              svgIcon="shopping-cart"
+              aria-hidden="false"
+              aria-label="shopping-cart-icon"
+              style="font-size: 14px; height: 14px; width: 14px"
+            ></mat-icon>
+          </button>
+        </div>
+      </mat-toolbar>
+      }
+
+      <!-- Hero Section -->
+      <swiper-container class="hero-section" #swiperElement init="false">
+        @for (slide of categories(); track slide) {
+        <swiper-slide class="hero-slide">
+          <div
+            class="hero-image"
+            [style]="{
+                'background-image': 'url(' + slide.image + ')',
+              }"
+          ></div>
+          <div class="hero-text">
+            <h2 class="main-title">
+              @for (desc of slide.description?.split(' '); track desc) {
+              <span
+                [class.text-outline-light]="$index % 2 != 0 && desc.length < 5"
+              >
+                {{ desc }}
+              </span>
+              }
+            </h2>
+            <p class="subtitle">{{ slide.additionalInfo }}</p>
+            <!-- From Uiverse.io by vinodjangid07 -->
+            <button class="shop-button bg-white">
+              <mat-icon
+                svgIcon="explore"
+                aria-hidden="false"
+                aria-label="explore-icon"
+                class="svgIcon"
+              />
+              Explorar
+            </button>
+          </div>
+        </swiper-slide>
+        }
+      </swiper-container>
+
+      <!-- Marquee infinite scroll -->
+      <div class="row mt-3">
+        <app-marquee-scroll [categories]="categories()" />
       </div>
-    </div>
-  </section>
 
-  <!-- Featured Products -->
-  <section class="featured-products">
-    <h2>Featured Products</h2>
-    <div class="products-grid">
-      <mat-card class="product-card" *ngFor="let product of featuredProducts">
-        <img mat-card-image [src]="product.image" [alt]="product.name" />
-        <mat-card-content>
-          <h3>{{ product.name }}</h3>
-          <p>${{ product.price }}</p>
-          <p>{{ product.description }}</p>
-        </mat-card-content>
-        <mat-card-actions>
-          <button mat-button color="primary">Add to Cart</button>
-          <button mat-button>Learn More</button>
-        </mat-card-actions>
-      </mat-card>
-    </div>
-  </section>
+      <!-- Featured Categories -->
+      <section class="categories-section">
+        <h2>Popular Categories</h2>
+        <div class="categories-grid">
+          <div class="category-card" *ngFor="let i of [1, 2, 3, 4]">
+            <mat-card>
+              <mat-card-content>
+                <h3>Category {{ i }}</h3>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+      </section>
 
-  <!-- Call to Action -->
-  <section class="cta-section">
-    <div class="cta-content">
-      <h2>Subscribe to Our Newsletter</h2>
-      <p>Get the latest updates and special offers</p>
-      <mat-form-field appearance="outline">
-        <input matInput placeholder="Enter your email" />
-      </mat-form-field>
-      <button mat-raised-button color="accent">Subscribe</button>
-    </div>
-  </section>
+      <!-- Featured Products -->
+      <section class="featured-products">
+        <h2>Featured Products</h2>
+        <div class="products-grid">
+          <mat-card
+            class="product-card"
+            *ngFor="let product of featuredProducts"
+          >
+            <img mat-card-image [src]="product.image" [alt]="product.name" />
+            <mat-card-content>
+              <h3>{{ product.name }}</h3>
+              <p>${{ product.price }}</p>
+              <p>{{ product.description }}</p>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-button color="primary">Add to Cart</button>
+              <button mat-button>Learn More</button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </section>
+
+      <!-- Call to Action -->
+      <section class="cta-section">
+        <div class="cta-content">
+          <h2>Subscribe to Our Newsletter</h2>
+          <p>Get the latest updates and special offers</p>
+          <mat-form-field appearance="outline">
+            <input matInput placeholder="Enter your email" />
+          </mat-form-field>
+          <button mat-raised-button color="accent">Subscribe</button>
+        </div>
+      </section>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 </div>
 <p>home works!</p>

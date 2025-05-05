@@ -1,0 +1,64 @@
+.categories-container {
+  font-size: 15px;
+  padding-block: 8px;
+  overflow: hidden;
+  user-select: none;
+  position: relative;
+
+  --gap: 20px;
+  display: flex;
+  gap: var(--gap);
+
+  // Efecto de difuminado en los bordes
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.categories-container ul {
+  list-style: none;
+  flex-shrink: 0;
+  min-width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--gap);
+
+  animation: scroll 20s linear infinite;
+}
+
+.categories-container ul li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  gap: 10px; // Espaciado vertical entre imagen y texto
+  width: 120px; // Ancho fijo para cada categoría
+  height: 150px; // Alto fijo para cada categoría
+  text-align: center; // Centrar texto
+}
+
+.categories-container:hover ul {
+  animation-play-state: paused;
+}
+
+@keyframes scroll {
+  to {
+    transform: translateX(calc(-100% - var(--gap)));
+  }
+}
+
+.category {
+  height: 80px; // Altura fija para las imágenes
+  width: 80px; // Ancho fijo para las imágenes
+  object-fit: cover; // Asegura que las imágenes se ajusten al contenedor
+  border-radius: 8px; // Opcional: bordes redondeados
+}
+
+.categories-container .description {
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 1.2;
+  text-align: center;
+}
+

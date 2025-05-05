@@ -1,0 +1,27 @@
+<div class="categories-container">
+  <ul>
+    @for (category of categories(); track category) {
+    <li>
+      <img
+        class="category"
+        src="{{ category.miniature }}"
+        alt="{{ category.name }}"
+      />
+      <span class="description">{{ category.name }}</span>
+    </li>
+    }
+  </ul>
+
+  <ul aria-hidden="true">
+    @for (category of categories(); track category) {
+    <li>
+      <img
+        class="category"
+        src="{{ category.miniature }}"
+        alt="{{ category.name }}"
+      />
+      <span class="description">{{ category.name }}</span>
+    </li>
+    }
+  </ul>
+</div>
