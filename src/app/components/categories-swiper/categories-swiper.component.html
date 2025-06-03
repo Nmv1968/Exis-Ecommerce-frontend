@@ -1,0 +1,83 @@
+<!-- Hero Section -->
+<div class="swiper-container-wrapper position-relative">
+  <swiper-container class="py-2" #swiperElement init="false">
+    @for (slide of categories(); track slide) {
+    <swiper-slide class="container">
+      <div class="row justify-content-center">
+        <div class="mx-2">
+          <div class="card-img h-100 rounded-4">
+            <img
+              [src]="slide.image"
+              class="card-img-top-custom"
+              [alt]="slide.description"
+            />
+            <div class="card-body card-body-flex p-4">
+              <span
+                class="text-muted text-uppercase small fw-semibold"
+                style="letter-spacing: 0.05em"
+                >{{ slide.description }}</span
+              >
+              <h5 class="card-title fs-4 fw-bold text-dark mt-1 mb-3">
+                {{ slide.name }}
+              </h5>
+              <!-- From Uiverse.io by alexmaracinaru -->
+              <button class="cta">
+                <span class="hover-underline-animation"> Comprar ahora </span>
+                <svg
+                  id="arrow-horizontal"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="30"
+                  height="10"
+                  viewBox="0 0 46 16"
+                >
+                  <path
+                    id="Path_10"
+                    data-name="Path 10"
+                    d="M8,0,6.545,1.455l5.506,5.506H-30V9.039H12.052L6.545,14.545,8,16l8-8Z"
+                    transform="translate(30)"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </swiper-slide>
+    }
+  </swiper-container>
+  
+  <button type="button" class="btn-swiper-prev btn btn-light rounded-full">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+    >
+      <path
+        fill="none"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="1.5"
+        d="m15 5l-6 7l6 7"
+      />
+    </svg>
+  </button>
+  <button type="button" class="btn-swiper-next btn btn-light rounded-full">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+    >
+      <path
+        fill="none"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="1.5"
+        d="m9 5l6 7l-6 7"
+      />
+    </svg>
+  </button>
+</div>

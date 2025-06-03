@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { CategoryModel } from 'src/app/core/models/category.model';
 
 @Component({
   selector: 'app-marquee-scroll',
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './marquee-scroll.component.html',
   styleUrl: './marquee-scroll.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

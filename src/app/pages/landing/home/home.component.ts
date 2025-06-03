@@ -1,15 +1,10 @@
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
-  effect,
-  ElementRef,
-  inject,
   OnDestroy,
   OnInit,
   signal,
-  viewChild,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -17,11 +12,12 @@ import { MaterialModule } from '../../../material.module';
 import { CdkMenu, CdkMenuItem, CdkMenuTrigger } from '@angular/cdk/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { register, SwiperContainer } from 'swiper/element/bundle';
-import { SwiperOptions } from 'swiper/types';
+import { register } from 'swiper/element/bundle';
 import { MarqueeScrollComponent } from 'src/app/components/marquee-scroll/marquee-scroll.component';
 import { CategoryModel } from 'src/app/core/models/category.model';
 import { MediaMatcher } from '@angular/cdk/layout';
+import { HomeSwiperComponent } from 'src/app/components/home-swiper/home-swiper.component';
+import { CategoriesSwiperComponent } from 'src/app/components/categories-swiper/categories-swiper.component';
 register();
 
 @Component({
@@ -38,40 +34,25 @@ register();
     MatIconModule,
     MatButtonModule,
     MarqueeScrollComponent,
+    HomeSwiperComponent,
+    CategoriesSwiperComponent,
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
-  constructor(
-    private mediaMatcher: MediaMatcher,
-  ) {
-
+export class HomeComponent implements OnInit, OnDestroy {
+  constructor(private mediaMatcher: MediaMatcher) {
     this._mobileQuery = this.mediaMatcher.matchMedia('(max-width: 920px)');
     this.isMobile.set(this._mobileQuery.matches);
-    this._mobileQueryListener = () => this.isMobile.set(this._mobileQuery.matches);
+    this._mobileQueryListener = () =>
+      this.isMobile.set(this._mobileQuery.matches);
     this._mobileQuery.addEventListener('change', this._mobileQueryListener);
   }
 
-  // #region refs
-  swiperRef = viewChild.required<ElementRef<SwiperContainer>>('swiperElement');
-
   // #region states
   expandedMenu = signal(false);
-  swiperElement = signal<SwiperContainer | null>(null);
-  swiperOptions: SwiperOptions = {
-    slidesPerView: 1,
-    loop: true,
-    autoplay: {
-      delay: 3000,
-    },
-    pagination: {
-      clickable: true,
-      enabled: true,
-    },
-  };
 
   categories = signal<CategoryModel.CategoryResponse[]>([
     {
@@ -170,7 +151,6 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   private readonly _mobileQuery: MediaQueryList;
   private readonly _mobileQueryListener: () => void;
 
-
   // region lifecycle hooks
   ngOnInit(): void {
     // this.onSwiperInit();
@@ -178,35 +158,5 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this._mobileQuery.removeEventListener('change', this._mobileQueryListener);
-  }
-
-  ngAfterViewInit(): void {
-    this.onSwiperInit();
-  }
-
-  // #region methods
-  onSwiperInit() {
-    const swiperElementConstructor = this.swiperRef()
-      .nativeElement as SwiperContainer;
-
-    const swiperOptions: SwiperOptions = {
-      slidesPerView: 1,
-      loop: true,
-      autoplay: {
-        delay: 3000,
-        disableOnInteraction: false,
-      },
-      pagination: {
-        enabled: true,
-        clickable: true,
-      },
-    };
-
-    Object.assign(swiperElementConstructor, swiperOptions);
-    this.swiperElement.set(swiperElementConstructor);
-    this.swiperElement()?.initialize();
-    this.swiperElement()?.setAttribute('autoplay', 'true');
-    this.swiperElement()?.setAttribute('autoplay-delay', '3000');
-    this.swiperElement()?.setAttribute('loop', 'true');
   }
 }

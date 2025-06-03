@@ -1,7 +1,17 @@
 <div class="categories-container">
   <ul>
     @for (category of categories(); track category) {
-    <li>
+    <li [routerLink]="'/'" style="cursor: pointer;">
+      <img
+        class="category"
+        src="{{ category.miniature }}"
+        alt="{{ category.name }}"
+      />
+      <span class="description">{{ category.name }}</span>
+    </li>
+    }
+    @for (category of categories(); track category) {
+    <li [routerLink]="'/'" style="cursor: pointer;">
       <img
         class="category"
         src="{{ category.miniature }}"
@@ -14,7 +24,17 @@
 
   <ul aria-hidden="true">
     @for (category of categories(); track category) {
-    <li>
+    <li [routerLink]="'/'" style="cursor: pointer;">
+      <img
+        class="category"
+        src="{{ category.miniature }}"
+        alt="{{ category.name }}"
+      />
+      <span class="description">{{ category.name }}</span>
+    </li>
+    }
+    @for (category of categories(); track category) {
+    <li [routerLink]="'/'" style="cursor: pointer;">
       <img
         class="category"
         src="{{ category.miniature }}"
